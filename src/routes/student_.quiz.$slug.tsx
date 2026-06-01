@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { CheckCircle2, XCircle, Clock, Trophy, ArrowRight } from "lucide-react";
 
-export const Route = createFileRoute("/student/quiz/$slug")({
+export const Route = createFileRoute("/student_/quiz/$slug")({
   component: QuizPage,
 });
 

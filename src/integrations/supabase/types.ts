@@ -14,16 +14,154 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      questions: {
+        Row: {
+          correct_index: number
+          created_at: string
+          id: string
+          options: Json
+          order_num: number
+          question_text: string
+          topic_id: string
+        }
+        Insert: {
+          correct_index: number
+          created_at?: string
+          id?: string
+          options: Json
+          order_num: number
+          question_text: string
+          topic_id: string
+        }
+        Update: {
+          correct_index?: number
+          created_at?: string
+          id?: string
+          options?: Json
+          order_num?: number
+          question_text?: string
+          topic_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "questions_topic_id_fkey"
+            columns: ["topic_id"]
+            isOneToOne: false
+            referencedRelation: "topics"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      student_sessions: {
+        Row: {
+          correct_count: number
+          created_at: string
+          duration_seconds: number | null
+          finished_at: string | null
+          id: string
+          started_at: string
+          student_class: string
+          student_name: string
+          topic_id: string
+          total_questions: number
+        }
+        Insert: {
+          correct_count?: number
+          created_at?: string
+          duration_seconds?: number | null
+          finished_at?: string | null
+          id?: string
+          started_at?: string
+          student_class: string
+          student_name: string
+          topic_id: string
+          total_questions?: number
+        }
+        Update: {
+          correct_count?: number
+          created_at?: string
+          duration_seconds?: number | null
+          finished_at?: string | null
+          id?: string
+          started_at?: string
+          student_class?: string
+          student_name?: string
+          topic_id?: string
+          total_questions?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "student_sessions_topic_id_fkey"
+            columns: ["topic_id"]
+            isOneToOne: false
+            referencedRelation: "topics"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      topics: {
+        Row: {
+          created_at: string
+          description: string
+          id: string
+          order_num: number
+          slug: string
+          title: string
+        }
+        Insert: {
+          created_at?: string
+          description: string
+          id?: string
+          order_num: number
+          slug: string
+          title: string
+        }
+        Update: {
+          created_at?: string
+          description?: string
+          id?: string
+          order_num?: number
+          slug?: string
+          title?: string
+        }
+        Relationships: []
+      }
+      user_roles: {
+        Row: {
+          created_at: string
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "teacher" | "student"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +288,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["teacher", "student"],
+    },
   },
 } as const

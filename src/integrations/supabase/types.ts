@@ -18,28 +18,34 @@ export type Database = {
         Row: {
           correct_index: number
           created_at: string
+          difficulty: string
           id: string
           options: Json
           order_num: number
           question_text: string
+          question_type: string
           topic_id: string
         }
         Insert: {
           correct_index: number
           created_at?: string
+          difficulty?: string
           id?: string
           options: Json
           order_num: number
           question_text: string
+          question_type?: string
           topic_id: string
         }
         Update: {
           correct_index?: number
           created_at?: string
+          difficulty?: string
           id?: string
           options?: Json
           order_num?: number
           question_text?: string
+          question_type?: string
           topic_id?: string
         }
         Relationships: [

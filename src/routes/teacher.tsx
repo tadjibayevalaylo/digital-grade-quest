@@ -3,7 +3,8 @@ import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { lovable } from "@/integrations/lovable";
 import type { Session } from "@supabase/supabase-js";
-import { LogOut, Users, Clock, Trophy, TrendingUp, BookOpen } from "lucide-react";
+import { LogOut, Users, Clock, Trophy, TrendingUp, BookOpen, Settings2, BarChart3 } from "lucide-react";
+import { ContentManager } from "@/components/manage/ContentManager";
 
 export const Route = createFileRoute("/teacher")({
   head: () => ({
@@ -36,6 +37,7 @@ function TeacherPage() {
   const [rows, setRows] = useState<Row[]>([]);
   const [topics, setTopics] = useState<Map<string, Topic>>(new Map());
   const [filterTopic, setFilterTopic] = useState<string>("all");
+  const [tab, setTab] = useState<"results" | "manage">("results");
 
   useEffect(() => {
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_e, s) => {
@@ -131,6 +133,29 @@ function TeacherPage() {
         </button>
       </div>
 
+      {/* Tabs */}
+      <div className="inline-flex p-1 rounded-2xl bg-secondary mb-8 gap-1">
+        {([
+          { id: "results", label: "Natijalar", icon: BarChart3 },
+          { id: "manage", label: "Mavzular", icon: Settings2 },
+        ] as const).map(({ id, label, icon: Icon }) => (
+          <button
+            key={id}
+            onClick={() => setTab(id)}
+            className={
+              "inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium transition-colors " +
+              (tab === id ? "bg-card text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground")
+            }
+          >
+            <Icon className="h-4 w-4" /> {label}
+          </button>
+        ))}
+      </div>
+
+      {tab === "manage" ? (
+        <ContentManager />
+      ) : (
+      <>
       {/* Stats */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
         {[
@@ -205,6 +230,8 @@ function TeacherPage() {
           </table>
         </div>
       </div>
+      </>
+      )}
     </div>
   );
 }

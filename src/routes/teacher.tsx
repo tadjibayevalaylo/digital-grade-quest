@@ -37,6 +37,7 @@ function TeacherPage() {
   const [rows, setRows] = useState<Row[]>([]);
   const [topics, setTopics] = useState<Map<string, Topic>>(new Map());
   const [filterTopic, setFilterTopic] = useState<string>("all");
+  const [tab, setTab] = useState<"results" | "manage">("results");
 
   useEffect(() => {
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_e, s) => {

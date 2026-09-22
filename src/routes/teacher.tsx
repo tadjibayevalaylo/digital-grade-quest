@@ -133,6 +133,29 @@ function TeacherPage() {
         </button>
       </div>
 
+      {/* Tabs */}
+      <div className="inline-flex p-1 rounded-2xl bg-secondary mb-8 gap-1">
+        {([
+          { id: "results", label: "Natijalar", icon: BarChart3 },
+          { id: "manage", label: "Mavzular", icon: Settings2 },
+        ] as const).map(({ id, label, icon: Icon }) => (
+          <button
+            key={id}
+            onClick={() => setTab(id)}
+            className={
+              "inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium transition-colors " +
+              (tab === id ? "bg-card text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground")
+            }
+          >
+            <Icon className="h-4 w-4" /> {label}
+          </button>
+        ))}
+      </div>
+
+      {tab === "manage" ? (
+        <ContentManager />
+      ) : (
+      <>
       {/* Stats */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
         {[

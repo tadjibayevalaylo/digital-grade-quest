@@ -230,6 +230,8 @@ function TeacherPage() {
           </table>
         </div>
       </div>
+      </>
+      )}
     </div>
   );
 }

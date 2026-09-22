@@ -3,7 +3,8 @@ import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { lovable } from "@/integrations/lovable";
 import type { Session } from "@supabase/supabase-js";
-import { LogOut, Users, Clock, Trophy, TrendingUp, BookOpen } from "lucide-react";
+import { LogOut, Users, Clock, Trophy, TrendingUp, BookOpen, Settings2, BarChart3 } from "lucide-react";
+import { ContentManager } from "@/components/manage/ContentManager";
 
 export const Route = createFileRoute("/teacher")({
   head: () => ({
